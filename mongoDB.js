@@ -10,6 +10,14 @@
 8.db.student.insert({"name":"xiaoming","age":10,"sex":"男"});     student就是所谓的集合。集合中存储很多json
      db一个未知的集合名字，这个集合将自动创建
 9.show collections           查看当前数据库有哪些集合
-10.db.student.find();        查看当前集合中有哪些json
+10.（1）db.student.find();        查看当前集合中有哪些json
+   （2）db.student.find("score.数学":70,"age":12);   查看数学为70且年龄为12的json（数组也可以按这个来）
+   （3）db.student.find({"score.数学":{$gt:70}});   查看数学大于的json
+   （4）db.student.find({$or:[{"age":9},{"age":11}]});   查看年龄是9或者11的json
+   （5）db.student.find().sort({"score.数学":1,"age":-1});   查完后排序，数学成绩按升序，成绩相同时年龄小的在前面
 11.db.student.find("name":"xiaoming");  查看name是xiaoming的json
 12.db.dropDatabase();               删除数据库
+13.mongoimport --db test --collection wpp --drop --file info.json
+    导入数据   db test：要导入的数据库名字   --collection wpp：要导入的集合名字
+    --drop  要删除的东西    --file info.json要导入的名字为info.json的数据的路径
+   这样就可以随便创建一个json文件用mongoimport导入进去了
