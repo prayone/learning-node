@@ -20,4 +20,4 @@
          <2>const b={a:10}   b.a=11;因为a是b的属性，所以不会报错
   （1）一般用在引入模块上面,如果用var 就会有问题    var fs=require('fs')  fs=...;
       const fs=require('fs')
-6.
+6.每个模块内部是一个私有空间。
