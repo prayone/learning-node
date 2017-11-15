@@ -5,13 +5,15 @@
 3.直接使用mongo命令连接数据库，运行环境就是mongo语法了
 4.show dbs    			  					列出所有数据库
 5.use 数据库名字     						使用数据库
-6.use 没有的数据库名字    					新建这个数据库
+6.use 没有的数据库名字     
+
+ 					新建这个数据库
 7.db                     					查看当前在那个数据库
 8.db.student.insert({"name":"xiaoming","age":10,"sex":"男"});     student就是所谓的集合。集合中存储很多json
      db一个未知的集合名字，这个集合将自动创建
 9.show collections           查看当前数据库有哪些集合
 10.（1）db.student.find();        查看当前集合中有哪些json
-   （2）db.student.find("score.数学":70,"age":12);   查看数学为70且年龄为12的json（数组也可以按这个来）
+   （2）db.student.find({"score.数学":70,"age":12});   查看数学为70且年龄为12的json（数组也可以按这个来）
    （3）db.student.find({"score.数学":{$gt:70}});   查看数学大于的json
    （4）db.student.find({$or:[{"age":9},{"age":11}]});   查看年龄是9或者11的json
    （5）db.student.find().sort({"score.数学":1,"age":-1});   查完后排序，数学成绩按升序，成绩相同时年龄小的在前面
@@ -21,5 +23,9 @@
     导入数据   db test：要导入的数据库名字   --collection wpp：要导入的集合名字
     --drop  要删除的东西    --file info.json要导入的名字为info.json的数据的路径
    这样就可以随便创建一个json文件用mongoimport导入进去了
-14.db.student.update({"name":"xiaoming"},{$set:{"age":16}});（默认只能改一个）查找名字叫小明的，把年龄更改为16岁。
-15.db.student.update({"name":"xiaoming"},{$set:{"age":16}},{multi:true});（全部修改）查找名字叫小明的，把年龄更改为16岁。
+14.（1）db.student.update({"name":"xiaoming"},{$set:{"age":16}});（默认只能改一个）查找名字叫小明的，把年龄更改为16岁。
+   （2）db.student.update({"name":"xiaoming"},{$set:{"age":16}},{multi:true});（全部修改）查找名字叫小明的，把年龄更改为16岁。
+   （3）db.student.update({"name":"xiaoming"},{"age":16});   用age：16完整替换这条json
+15.db.student.remove({"name":"xiaoming"})  删除数据（默认全删）
+	db.student.remove({"name":"xiaoming"},{justOne:true})  删除数据(只删除一条)
+	db.student.remove({})  删除集合里面的所有数据（集合还在）   drop是连集合一块删除
